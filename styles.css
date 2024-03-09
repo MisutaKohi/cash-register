@@ -52,6 +52,40 @@ input {
   margin-top: 45px;
 }
 
+#cash-register-body {
+  width: 350px;
+  height: 275px;
+  background-color: rgb(163,200,250);
+  margin-bottom: 10px;
+  border-radius: 50px 50px 0 0;
+  display: flex;
+}
+
+#buttons {
+  width: 28%;
+  height: 28%;
+  margin: 16px 20px 0px 25px;
+  display: grid;
+  grid-template-columns: 30px 30px 30px;
+  grid-gap: 0px;
+}
+
+#buttons > * {
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  border-radius: 5px;
+}
+
+#cash-in-drawer {
+  background-color: white;
+  color: black;
+  margin-top: 16px;
+  width: 50%;
+  height: 88%;
+  padding-left: 8px;
+}
+
 #cash-drawer {
   height: 60px;
   width: 350px;
