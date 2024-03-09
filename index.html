@@ -6,7 +6,32 @@
   <title>Cash Register</title>
   <link rel="stylesheet" href="styles.css"> </head>
 <body>
+  <h1>Cash Register Project</h1>
+  <div id="change-due" class="hidden"></div>
+  <label for="cash">Enter cash from customer:</label>
+  <input id="cash" type="text">
+  <button id="purchase-btn">Purchase</button>
   
+  <div id="cash-register">
+    <div id="display">
+      <div id="inner-display">
+        <span id="price-display">$3.26</span>
+      </div>
+    </div>
+    <div id="display-attachment"></div>
+
+    <div id="cash-register-body">
+      <div id="buttons"></div>
+      <div id="cash-in-drawer">
+        <span><strong>Change in drawer:</strong></span>
+        <span id="change-display"></span>
+      </div>
+    </div>
+
+    <div id="cash-drawer">
+      <div id="cash-drawer-handle"></div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
