@@ -112,6 +112,13 @@ input {
   height: 88%;
   padding-left: 8px;
   font-size: 18px;
+  padding-top: 8px;
+}
+
+#change-display {
+  list-style-type: none;
+  margin-left: 0px;
+  padding: 0;
 }
 
 #cash-drawer {
