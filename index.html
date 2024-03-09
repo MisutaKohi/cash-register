@@ -8,9 +8,11 @@
 <body>
   <h1>Cash Register Project</h1>
   <div id="change-due" class="hidden"></div>
-  <label for="cash">Enter cash from customer:</label>
-  <input id="cash" type="text">
-  <button id="purchase-btn">Purchase</button>
+  <div id="customer-input">
+    <label for="cash">Enter cash from customer:</label>
+    <input id="cash" type="number" min="0">
+    <button id="purchase-btn">Purchase</button>
+  </div>
   
   <div id="cash-register">
     <div id="display">
