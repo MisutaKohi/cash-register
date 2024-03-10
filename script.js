@@ -18,15 +18,15 @@ let cid = [
 ];
 
 let changeArr = [
-  [0.01, 0],
-  [0.05, 0],
-  [0.1, 0],
-  [0.25, 0],
-  [1, 0],
-  [5, 0],
-  [10, 0],
-  [20, 0],
-  [100, 0]
+  [0.01, 0, 'PENNY'],
+  [0.05, 0, 'NICKEL'],
+  [0.1, 0, 'DIME'],
+  [0.25, 0, 'QUARTER'],
+  [1, 0, 'ONE'],
+  [5, 0, 'FIVE'],
+  [10, 0, 'TEN'],
+  [20, 0, 'TWENTY'],
+  [100, 0, 'ONE HUNDRED']
 ];
 
 const denominations = [
@@ -41,11 +41,18 @@ const denominations = [
   "Hundreds"
 ];
 
+const resetChangeArr = () => {
+  for (const denomination of changeArr) {
+    denomination[1] = 0;
+  }
+}
+
 const displayCashInDrawer = () => {
   changeDisplay.innerHTML = ``;
   
   let idx = 0;
   for (const denomination of denominations) {
+    cid[idx][1] = Math.round(cid[idx][1] * 100) / 100;
     changeDisplay.innerHTML += `<li>${denomination}: $${cid[idx][1]}</li>`;
     idx++;
     console.log('here');
@@ -57,11 +64,25 @@ const displayPrice = (price) => {
 }
 
 const displayChangeDue = () => {
-  
-}
+  changeDueDisplay.classList.remove('hidden');
 
-displayPrice(price);
-displayCashInDrawer();
+  let totalChangeInDrawer = 0;
+  for (const denomination of cid) {
+    totalChangeInDrawer += denomination[1];
+  }
+
+  let status = (totalChangeInDrawer > 0) ? 'OPEN' : 'CLOSED';
+
+  changeDueDisplay.innerHTML = `<p>Status: ${status}</p>`;
+
+  for (const changeDenomination of changeArr) {
+    if (changeDenomination[1] !== 0) {
+      changeDenomination[1] = (Math.round(changeDenomination[1] * 100) / 100).toFixed(2);
+      changeDueDisplay.innerHTML += `<p>${changeDenomination[2]}: $${changeDenomination[1]}</p>`;
+    }
+  }
+  resetChangeArr();
+}
 
 const makePurchase = () => {
   let customerFunds = parseFloat(userInput.value);
@@ -69,7 +90,7 @@ const makePurchase = () => {
   
   if (customerFunds === price) {
     changeDueDisplay.classList.remove('hidden');
-    changeDisplay.innerHTML = `No change due - customer paid with exact cash`;
+    changeDueDisplay.innerHTML = "No change due - customer paid with exact cash";
   } else if (customerFunds < price) {
     alert("Customer does not have enough money to purchase the item");
   } else {
@@ -79,9 +100,22 @@ const makePurchase = () => {
     
     if (purchaseSuccess) {
       displayCashInDrawer();
+      displayChangeDue();
+    } else {
+      returnCashToDrawer();
     }
   }
 }
+
+const returnCashToDrawer = () => {
+  changeDueDisplay.classList.remove('hidden');
+  changeDueDisplay.innerHTML = `<p>Status: INSUFFICIENT_FUNDS</p>`;
+
+  for (let i = 0; i < cid.length; i++) {
+    cid[i][1] += changeArr[i][1];
+    cid[i][1] = Math.round(cid[i][1] * 100) / 100;
+  }
+} 
 
 const calculateChangeDue = (changeAmount) => {
   
@@ -92,11 +126,11 @@ const calculateChangeDue = (changeAmount) => {
       changeArr[i][1] += changeArr[i][0];
       changeAmount = Math.round(changeAmount * 100) / 100; // removes floating point oddities
     }
-    
   }
-  
-  console.log(changeAmount);
   return changeAmount === 0;
 };
 
 purchaseBtn.addEventListener('click', makePurchase);
+
+displayPrice(price);
+displayCashInDrawer();
